@@ -8,6 +8,10 @@ on:
   pull_request:
     paths-ignore:
       - '**.md'
+  workflow_dispatch:
+
+env:
+  NODE_OPTIONS: "--pending-deprecation --trace-deprecation"
 
 jobs:
   upload:
@@ -191,4 +195,3 @@ jobs:
               `Expected 0 artifacts but found ${foundArtifacts.length} artifacts.`
             )
           }
-
