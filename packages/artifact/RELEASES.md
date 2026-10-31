@@ -1,5 +1,34 @@
 # @actions/artifact Releases
 
+## 6.3.1
+
+- Declare `@protobuf-ts/runtime-rpc` as a production dependency so the package can be imported in clean consumers without the protobuf code-generation tooling.
+
+## 6.3.0
+
+- Honor positive integer `Retry-After` seconds on HTTP 429 responses, including when the response body is not valid JSON. Unsupported or missing values use exponential backoff ([#2534](https://github.com/actions/toolkit/pull/2534)).
+- Increase the initial fallback retry wait to 8 seconds and limit accumulated retry sleep to 120 seconds.
+
+## 6.2.2
+
+- Bump dependency versions ([#2393](https://github.com/actions/toolkit/pull/2393)):
+  - `@actions/core` to `^3.0.1`
+  - `@actions/github` to `^9.1.1`
+  - `@actions/http-client` to `^4.0.1`
+  - `@azure/storage-blob` to `^12.31.0`
+  - `@octokit/plugin-retry` to `^8.1.0`
+  - `@octokit/request` to `^10.0.8`
+  - `@protobuf-ts/runtime` to `^2.11.1`
+- Move `@protobuf-ts/plugin` to `devDependencies`
+
+## 6.2.1
+
+- Support the RFC 5987 `filename*` field in the `content-disposition` header. This allows us to correctly download files and artifacts with Chinese/Japanese/Korean (among other) characters in their name.
+
+## 6.2.0
+
+- Support uploading single un-archived files (not zipped). Direct uploads are only supported for artifacts version 7+ (based on the major version of `actions/upload-artifact`). Callers must pass the `skipArchive` option to `uploadArtifact`. Only single files can be uploaded at a time right now. Default behavior should remain unchanged if `skipArchive = false`. When `skipArchive = true`, the name of the file is used as the name of the artifact for consistency with the downloads: you upload `artifact.txt`, you download `artifact.txt`.
+
 ## 6.1.0
 
 - Support downloading non-zip artifacts. Zipped artifacts will be decompressed automatically (with an optional override). Un-zipped artifacts will be downloaded as-is.
